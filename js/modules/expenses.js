@@ -32,24 +32,94 @@ export class ExpenseManager {
     utils.showNotification('Despesa excluída', 'danger');
   }
 
+  renderMonthFilterOptions() {
+    const expenses = storage.getExpenses();
+    const uniqueMonths = new Set();
+
+    expenses.forEach(expense => {
+        const dateParts = expense.date.split('-');
+        const expenseDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+        const year = expenseDate.getFullYear();
+        const month = expenseDate.getMonth();
+        uniqueMonths.add(`${year}-${String(month + 1).padStart(2, '0')}`);
+    });
+
+    const sortedMonths = Array.from(uniqueMonths).sort().reverse();
+
+    elements.timeFilterSelect.innerHTML = `
+        <option value="month">Este Mês</option>
+        <option value="week">Esta Semana</option>
+        <option value="day">Hoje</option>
+    `;
+
+    const monthFormatter = new Intl.DateTimeFormat('pt-BR', { month: 'long', year: 'numeric' });
+    const today = new Date();
+    const currentMonthKey = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}`;
+
+    sortedMonths.forEach(monthKey => {
+        if (monthKey === currentMonthKey) {
+            return;
+        }
+
+        const [year, month] = monthKey.split('-');
+        const date = new Date(year, month - 1, 1);
+        const option = document.createElement('option');
+        option.value = monthKey;
+
+        let label = monthFormatter.format(date);
+        option.textContent = label.charAt(0).toUpperCase() + label.slice(1);
+
+        elements.timeFilterSelect.appendChild(option);
+    });
+  }
+
   getFilteredExpenses() {
     const expenses = storage.getExpenses();
-    const filter = elements.timeFilterSelect.value;
-    const now = new Date();
-    const startOfWeek = new Date(now.setDate(now.getDate() - now.getDay()));
-    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+    const timeFilter = elements.timeFilterSelect.value;
+    const categoryFilter = elements.categoryFilterSelect.value;
+    const searchTerm = elements.searchInput.value.trim().toLowerCase();
+    const today = new Date();
+    const monthFilterRegex = /^\d{4}-\d{2}$/;
+
+    // Pre-calculate date ranges to be more efficient
+    let startDate, endDate;
+    if (monthFilterRegex.test(timeFilter)) {
+      const [year, month] = timeFilter.split('-').map(Number);
+      startDate = new Date(year, month - 1, 1);
+      endDate = new Date(year, month, 1);
+    } else if (timeFilter === 'week') {
+      startDate = new Date(today);
+      startDate.setDate(today.getDate() - today.getDay());
+      startDate.setHours(0, 0, 0, 0);
+    } else if (timeFilter === 'month') {
+      startDate = new Date(today.getFullYear(), today.getMonth(), 1);
+    }
 
     return expenses.filter(expense => {
-      const expenseDate = new Date(expense.date);
-      switch (filter) {
-        case 'day':
-          return expenseDate.toDateString() === new Date().toDateString();
-        case 'week':
-          return expenseDate >= startOfWeek;
-        case 'month':
-        default:
-          return expenseDate >= startOfMonth;
+      // 1. Search check
+      const searchMatch = searchTerm === '' || expense.description.toLowerCase().includes(searchTerm);
+      if (!searchMatch) return false;
+
+      // 2. Category check
+      const categoryMatch = (categoryFilter === 'all') || (expense.categoryId === categoryFilter);
+      if (!categoryMatch) return false;
+
+      // 3. Time check
+      const dateParts = expense.date.split('-');
+      const expenseDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+
+      if (timeFilter === 'day') {
+        return expenseDate.toDateString() === today.toDateString();
       }
+
+      if (endDate) { // Specific month range
+        return expenseDate >= startDate && expenseDate < endDate;
+      }
+      if (startDate) { // Open-ended range (week, month)
+        return expenseDate >= startDate;
+      }
+
+      return true; // Should not happen with default filters
     });
   }
 

@@ -15,7 +15,9 @@ export const elements = {
   categoryChart: document.getElementById('category-chart'),
 
   // Lista de Despesas
+  searchInput: document.getElementById('search-input'),
   timeFilterSelect: document.getElementById('time-filter-select'),
+  categoryFilterSelect: document.getElementById('category-filter-select'),
   expensesList: document.getElementById('expenses-list'),
   emptyState: document.getElementById('empty-state'),
   emptyStateAddBtn: document.getElementById('empty-state-add-btn'),

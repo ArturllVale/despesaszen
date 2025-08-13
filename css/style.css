@@ -135,8 +135,36 @@ body {
   border-bottom: 1px solid var(--border-color);
 }
 
+.list-header {
+  flex-wrap: wrap;
+}
+
 .list-header h2 {
     font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.filters-and-search {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-grow: 1;
+    justify-content: flex-end;
+}
+
+.filter-container {
+    display: flex;
+    gap: 0.5rem;
+}
+
+#search-input {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background-color: var(--card-background);
+    color: var(--text-color);
+    font-size: 0.9rem;
+    min-width: 200px;
 }
 
 .filter-container select {
