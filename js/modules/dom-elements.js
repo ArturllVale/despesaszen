@@ -6,6 +6,7 @@ export const elements = {
   menuBtn: document.getElementById('menu-btn'),
   menuDropdown: document.getElementById('menu-dropdown'),
   manageCategoriesBtn: document.getElementById('manage-categories-btn'),
+  compareExpensesBtn: document.getElementById('compare-expenses-btn'),
   exportBtn: document.getElementById('export-btn'),
   clearDataBtn: document.getElementById('clear-data-btn'),
   installPwaBtn: document.getElementById('install-pwa-btn'),
@@ -57,4 +58,14 @@ export const elements = {
 
   // Notificações
   notificationContainer: document.getElementById('notification-container'),
+
+  // Diálogo de Comparação
+  comparisonDialog: document.getElementById('comparison-dialog'),
+  closeComparisonDialogBtn: document.getElementById('close-comparison-dialog-btn'),
+  compareYearA: document.getElementById('compare-year-a'),
+  compareMonthA: document.getElementById('compare-month-a'),
+  compareYearB: document.getElementById('compare-year-b'),
+  compareMonthB: document.getElementById('compare-month-b'),
+  runComparisonBtn: document.getElementById('run-comparison-btn'),
+  comparisonResultsContainer: document.getElementById('comparison-results-container'),
 };

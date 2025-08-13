@@ -58,6 +58,10 @@
                 </svg>
                 <span>Gerenciar Categorias</span>
               </button>
+              <button id="compare-expenses-btn" class="menu-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bar-chart-3"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+                <span>Verificar Despesas</span>
+              </button>
               <button id="export-btn" class="menu-item">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -219,6 +223,40 @@
     </div>
 
     <div id="notification-container" class="notification-container"></div>
+
+    <div id="comparison-dialog" class="dialog hidden">
+      <div class="dialog-content large">
+        <div class="dialog-header">
+          <h2>Comparar Despesas</h2>
+          <button id="close-comparison-dialog-btn" class="close-button">&times;</button>
+        </div>
+        <div class="dialog-body">
+          <div class="comparison-selectors">
+            <div class="period-selector">
+              <label>Período A</label>
+              <div class="form-row">
+                <select id="compare-year-a"></select>
+                <select id="compare-month-a"></select>
+              </div>
+            </div>
+            <div class="period-selector">
+              <label>Período B</label>
+              <div class="form-row">
+                <select id="compare-year-b"></select>
+                <select id="compare-month-b"></select>
+              </div>
+            </div>
+          </div>
+          <div class="dialog-footer">
+            <button id="run-comparison-btn" class="button primary">Comparar</button>
+          </div>
+          <div id="comparison-results-container">
+            <!-- Os resultados da comparação serão renderizados aqui -->
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </body>
 
