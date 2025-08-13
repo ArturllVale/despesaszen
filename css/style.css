@@ -355,6 +355,54 @@ body {
   flex-direction: column;
 }
 
+.dialog-content.large {
+    max-width: 720px;
+}
+
+.comparison-selectors {
+    display: flex;
+    justify-content: space-around;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.period-selector label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    text-align: center;
+}
+
+#comparison-results-container {
+    margin-top: 1.5rem;
+}
+
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.comparison-table th, .comparison-table td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.comparison-table th {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.comparison-table tr:last-child td {
+    border-bottom: none;
+}
+
+.comparison-table .total-row td {
+    font-weight: 700;
+    border-top: 2px solid var(--primary-color);
+}
+
 .dialog-header {
   position: relative;
   margin-bottom: 1.5rem;

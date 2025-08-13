@@ -8,6 +8,7 @@ import { DialogManager } from './modules/dialogs.js';
 import { ChartManager } from './modules/charts.js';
 import { ExportManager } from './modules/export.js';
 import { PWAManager } from './modules/pwa.js';
+import { ComparisonManager } from './modules/comparison.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   // Inicializar Gerenciadores
@@ -17,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const dialogManager = new DialogManager();
   const exportManager = new ExportManager();
   const pwaManager = new PWAManager();
+  const comparisonManager = new ComparisonManager();
 
   // --- Event Listeners Principais ---
 
@@ -24,16 +26,23 @@ document.addEventListener('DOMContentLoaded', () => {
   elements.addExpenseBtn.addEventListener('click', () => dialogManager.openExpenseDialog());
   elements.emptyStateAddBtn.addEventListener('click', () => dialogManager.openExpenseDialog());
 
-  // Menu Dropdown
-  elements.menuBtn.addEventListener('click', () => elements.menuDropdown.classList.toggle('hidden'));
+  // Menu Dropdown & Dialogs
   document.addEventListener('click', (e) => {
+    // Fecha o menu se clicar fora
     if (!elements.menuBtn.contains(e.target) && !elements.menuDropdown.contains(e.target)) {
       elements.menuDropdown.classList.add('hidden');
     }
+    // Fecha o diálogo de comparação se clicar fora do conteúdo
+    if (e.target === elements.comparisonDialog) {
+      comparisonManager.closeComparisonDialog();
+    }
   });
+
+  elements.menuBtn.addEventListener('click', () => elements.menuDropdown.classList.toggle('hidden'));
 
   // Ações do Menu
   elements.manageCategoriesBtn.addEventListener('click', () => dialogManager.openCategoryDialog());
+  elements.compareExpensesBtn.addEventListener('click', () => comparisonManager.openComparisonDialog());
   elements.exportBtn.addEventListener('click', function () {
     dialogManager.openExportDialog();
     elements.menuDropdown.classList.add('hidden'); // Fechar o menu após a seleção
