@@ -68,4 +68,15 @@ export class CategoryManager {
       elements.expenseCategorySelect.appendChild(option);
     });
   }
+
+  renderCategoryFilterOptions() {
+    const categories = storage.getCategories();
+    elements.categoryFilterSelect.innerHTML = '<option value="all">Todas as categorias</option>';
+    categories.forEach(category => {
+      const option = document.createElement('option');
+      option.value = category.id;
+      option.textContent = category.name;
+      elements.categoryFilterSelect.appendChild(option);
+    });
+  }
 }

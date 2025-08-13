@@ -48,7 +48,9 @@ document.addEventListener('DOMContentLoaded', () => {
   elements.toggleDarkModeBtn.addEventListener('click', utils.toggleDarkMode);
 
   // Filtros
+  elements.searchInput.addEventListener('input', () => expenseManager.renderExpenses());
   elements.timeFilterSelect.addEventListener('change', () => expenseManager.renderExpenses());
+  elements.categoryFilterSelect.addEventListener('change', () => expenseManager.renderExpenses());
 
   // --- Diálogos ---
 
@@ -88,6 +90,8 @@ document.addEventListener('DOMContentLoaded', () => {
     storage.initialize();
     categoryManager.renderCategoriesList();
     categoryManager.renderCategoryOptions();
+    categoryManager.renderCategoryFilterOptions();
+    expenseManager.renderMonthFilterOptions();
     expenseManager.renderExpenses();
   }
 
