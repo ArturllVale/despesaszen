@@ -59,7 +59,14 @@
                 <span>Gerenciar Categorias</span>
               </button>
               <button id="compare-expenses-btn" class="menu-item">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bar-chart-3"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  class="lucide lucide-bar-chart-3">
+                  <path d="M3 3v18h18" />
+                  <path d="M18 17V9" />
+                  <path d="M13 17V5" />
+                  <path d="M8 17v-3" />
+                </svg>
                 <span>Verificar Despesas</span>
               </button>
               <button id="export-btn" class="menu-item">
@@ -111,17 +118,17 @@
       <div class="list-header">
         <h2 class="list-title">Despesas Recentes</h2>
         <div class="filters-and-search">
-            <input type="search" id="search-input" placeholder="Pesquisar despesas...">
-            <div class="filter-container">
-                <select id="category-filter-select">
-                    <option value="all">Todas as categorias</option>
-                </select>
-                <select id="time-filter-select">
-                    <option value="month">Este Mês</option>
-                    <option value="week">Esta Semana</option>
-                    <option value="day">Hoje</option>
-                </select>
-            </div>
+          <input type="search" id="search-input" placeholder="Pesquisar despesas...">
+          <div class="filter-container">
+            <select id="category-filter-select">
+              <option value="all">Todas as categorias</option>
+            </select>
+            <select id="time-filter-select">
+              <option value="month">Este Mês</option>
+              <option value="week">Esta Semana</option>
+              <option value="day">Hoje</option>
+            </select>
+          </div>
         </div>
       </div>
 
@@ -250,8 +257,11 @@
           <div class="dialog-footer">
             <button id="run-comparison-btn" class="button primary">Comparar</button>
           </div>
-          <div id="comparison-results-container">
-            <!-- Os resultados da comparação serão renderizados aqui -->
+          <div id="comparison-results-section" class="comparison-results-section hidden">
+            <h3 class="results-title">Resultados da Comparação</h3>
+            <div id="comparison-results-container" class="comparison-results-container">
+              <!-- Os resultados da comparação serão renderizados aqui -->
+            </div>
           </div>
         </div>
       </div>

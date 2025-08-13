@@ -12,10 +12,12 @@ export class ComparisonManager {
   openComparisonDialog() {
     this._populateSelectors();
     elements.comparisonDialog.classList.remove('hidden');
+    elements.comparisonResultsSection.classList.add('hidden'); // Oculta a seção de resultados ao abrir o diálogo
   }
 
   closeComparisonDialog() {
     elements.comparisonDialog.classList.add('hidden');
+    elements.comparisonResultsSection.classList.add('hidden'); // Oculta a seção de resultados ao fechar
     elements.comparisonResultsContainer.innerHTML = ''; // Limpa os resultados ao fechar
   }
 
@@ -76,6 +78,7 @@ export class ComparisonManager {
     const reportA = this._getReportForPeriod(parseInt(yearA), parseInt(monthA));
     const reportB = this._getReportForPeriod(parseInt(yearB), parseInt(monthB));
 
+    elements.comparisonResultsSection.classList.remove('hidden'); // Exibe a seção de resultados
     this._renderResults(reportA, reportB);
   }
 
@@ -117,8 +120,8 @@ export class ComparisonManager {
         <thead>
           <tr>
             <th>Categoria</th>
-            <th>${monthAName.charAt(0).toUpperCase() + monthAName.slice(1)} ${elements.compareYearA.value}</th>
-            <th>${monthBName.charAt(0).toUpperCase() + monthBName.slice(1)} ${elements.compareYearB.value}</th>
+            <th class="period-a-header">${monthAName.charAt(0).toUpperCase() + monthAName.slice(1)} ${elements.compareYearA.value}</th>
+            <th class="period-b-header">${monthBName.charAt(0).toUpperCase() + monthBName.slice(1)} ${elements.compareYearB.value}</th>
             <th>Diferença</th>
           </tr>
         </thead>
@@ -131,10 +134,10 @@ export class ComparisonManager {
       const difference = amountB - amountA;
       tableHTML += `
         <tr>
-          <td>${name}</td>
-          <td>${utils.formatCurrency(amountA)}</td>
-          <td>${utils.formatCurrency(amountB)}</td>
-          <td style="color: ${difference > 0 ? 'var(--accent-color)' : 'var(--primary-color)'}">${utils.formatCurrency(difference)}</td>
+          <td data-label="Categoria">${name}</td>
+          <td data-label="${monthAName.charAt(0).toUpperCase() + monthAName.slice(1)} ${elements.compareYearA.value}">${utils.formatCurrency(amountA)}</td>
+          <td data-label="${monthBName.charAt(0).toUpperCase() + monthBName.slice(1)} ${elements.compareYearB.value}">${utils.formatCurrency(amountB)}</td>
+          <td data-label="Diferença" class="${difference > 0 ? 'difference-negative' : 'difference-positive'}">${utils.formatCurrency(difference)}</td>
         </tr>
       `;
     });
@@ -145,9 +148,9 @@ export class ComparisonManager {
         <tfoot>
           <tr class="total-row">
             <td>Total</td>
-            <td>${utils.formatCurrency(reportA.total)}</td>
-            <td>${utils.formatCurrency(reportB.total)}</td>
-            <td style="color: ${totalDifference > 0 ? 'var(--accent-color)' : 'var(--primary-color)'}">${utils.formatCurrency(totalDifference)}</td>
+            <td data-label="Total">${utils.formatCurrency(reportA.total)}</td>
+            <td data-label="Total">${utils.formatCurrency(reportB.total)}</td>
+            <td data-label="Diferença" class="${totalDifference > 0 ? 'difference-negative' : 'difference-positive'}">${utils.formatCurrency(totalDifference)}</td>
           </tr>
         </tfoot>
       </table>

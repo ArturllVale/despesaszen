@@ -67,5 +67,6 @@ export const elements = {
   compareYearB: document.getElementById('compare-year-b'),
   compareMonthB: document.getElementById('compare-month-b'),
   runComparisonBtn: document.getElementById('run-comparison-btn'),
+  comparisonResultsSection: document.getElementById('comparison-results-section'), // Novo elemento
   comparisonResultsContainer: document.getElementById('comparison-results-container'),
 };
