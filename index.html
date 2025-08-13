@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Despesas Zen</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="assets/icon.svg">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/script.js" type="module" defer></script>
+</head>
+
+<body>
+  <div id="app">
+    <header class="app-header">
+      <div class="container header-container">
+        <div class="logo-container">
+          <svg class="logo" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" x2="12" y1="2" y2="22"></line>
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+          </svg>
+          <span class="logo-text">Despesas Zen</span>
+        </div>
+        <div class="actions-container">
+          <button id="toggle-dark-mode-btn" class="button icon-button" title="Alternar Modo Escuro/Claro">
+            <svg class="dark-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+            <svg class="light-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+          </button>
+          <button id="add-expense-btn" class="button primary">Adicionar Despesa</button>
+          <div class="menu-container">
+            <button id="menu-btn" class="button icon-button">⋮</button>
+            <div id="menu-dropdown" class="menu-dropdown hidden">
+              <button id="manage-categories-btn" class="menu-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+                  <line x1="7" y1="7" x2="7.01" y2="7"></line>
+                </svg>
+                <span>Gerenciar Categorias</span>
+              </button>
+              <button id="export-btn" class="menu-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                <span>Exportar Dados</span>
+              </button>
+              <button id="clear-data-btn" class="danger menu-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="3 6 5 6 21 6"></polyline>
+                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                </svg>
+                <span>Limpar Dados</span>
+              </button>
+              <button id="install-pwa-btn" class="menu-item" style="display: none;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                <span>Instalar App</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <div class="dashboard">
+        <div class="summary-card">
+          <h3>Total Gasto (Mês)</h3>
+          <p id="total-expenses-display">R$ 0,00</p>
+        </div>
+        <div class="summary-card">
+          <h3>Visão Geral por Categoria</h3>
+          <div class="chart-container">
+            <canvas id="category-chart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="list-header">
+        <h2>Despesas Recentes</h2>
+        <div class="filter-container">
+          <select id="time-filter-select">
+            <option value="month">Este Mês</option>
+            <option value="week">Esta Semana</option>
+            <option value="day">Hoje</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="expenses-list" class="expenses-list">
+      </div>
+      <div id="empty-state" class="empty-state hidden">
+        <svg class="logo-large" xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 24 24"
+          fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" x2="12" y1="2" y2="22"></line>
+          <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+        </svg>
+        <h2 id="empty-state-title">Nenhuma despesa registrada</h2>
+        <p id="empty-state-message">Clique em "Adicionar Despesa" para começar.</p>
+        <button id="empty-state-add-btn" class="button primary">Adicionar sua primeira despesa</button>
+      </div>
+      <div class="footer-text">Criado com <3 por Artur Vale </div>
+    </main>
+
+    <div id="add-edit-dialog" class="dialog hidden">
+      <div class="dialog-content">
+        <div class="dialog-header">
+          <h2 id="dialog-title">Adicionar Despesa</h2>
+          <button id="close-dialog-btn" class="close-button">&times;</button>
+        </div>
+        <form id="add-edit-form">
+          <input type="hidden" id="expense-id">
+          <div class="form-group">
+            <label for="expense-amount">Valor</label>
+            <input type="number" id="expense-amount" placeholder="0,00" required step="0.01">
+          </div>
+          <div class="form-group">
+            <label for="expense-description">Descrição</label>
+            <input type="text" id="expense-description" placeholder="Ex: Café da manhã" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="expense-category">Categoria</label>
+              <select id="expense-category" required>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="expense-date">Data</label>
+              <input type="date" id="expense-date" required>
+            </div>
+          </div>
+          <div class="dialog-footer">
+            <button type="button" id="cancel-dialog-btn" class="button secondary">Cancelar</button>
+            <button type="submit" class="button primary">Salvar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="manage-categories-dialog" class="dialog hidden">
+      <div class="dialog-content">
+        <div class="dialog-header">
+          <h2>Gerenciar Categorias</h2>
+          <button id="close-manage-categories-dialog-btn" class="close-button">&times;</button>
+        </div>
+        <div class="dialog-body">
+          <form id="add-category-form" class="form-group">
+            <input type="text" id="category-name-input" placeholder="Nova categoria (Ex: Lazer)" required>
+            <button type="submit" class="button primary">Adicionar</button>
+          </form>
+          <div id="categories-list" class="categories-list">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="export-dialog" class="dialog hidden">
+      <div class="dialog-content">
+        <div class="dialog-header">
+          <h2>Exportar Dados</h2>
+          <button id="close-export-dialog-btn" class="close-button">&times;</button>
+        </div>
+        <div class="dialog-body">
+          <p>Escolha o formato para exportar seus dados:</p>
+          <div class="export-options">
+            <button id="export-json-btn" class="button primary block">Exportar para JSON</button>
+            <button id="export-csv-btn" class="button primary block">Exportar para CSV</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="confirm-dialog" class="dialog hidden">
+      <div class="dialog-content">
+        <div class="dialog-header">
+          <h2 id="confirm-dialog-title">Confirmar Exclusão</h2>
+          <button id="close-confirm-dialog-btn" class="close-button">&times;</button>
+        </div>
+        <p id="confirm-dialog-message">Tem certeza que deseja excluir este item?</p>
+        <div class="dialog-footer">
+          <button type="button" id="cancel-confirm-btn" class="button secondary">Cancelar</button>
+          <button type="button" id="confirm-delete-btn" class="button danger">Excluir</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="notification-container" class="notification-container"></div>
+  </div>
+</body>
+
+</html>

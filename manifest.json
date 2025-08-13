@@ -1,0 +1,23 @@
+{
+  "name": "Despesas Zen",
+  "short_name": "DespesasZen",
+  "description": "Um gerenciador de despesas simples e elegante, focado na simplicidade e eficiência.",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#f4f4f9",
+  "theme_color": "#2a9d8f",
+  "icons": [
+    {
+      "src": "assets/icon.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icon_512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
